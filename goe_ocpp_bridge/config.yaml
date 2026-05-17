@@ -1,5 +1,5 @@
 name: go-e v1_v2 OCPP Bridge
-version: "0.1.1"
+version: "0.1.2"
 slug: goe_ocpp_bridge
 description: Lokale go-eCharger HTTP API als OCPP 1.6 JSON Charge Point bereitstellen
 url: https://github.com/nvormund/go-e_v1_v2_OCPP_bridge_ha_addon
@@ -37,25 +37,25 @@ options:
   bridge_log_file: ""
 
 schema:
-  goe_host: "str(1,)"
+  goe_host: str
   goe_api_version: "list(auto|v1|v2)"
-  goe_timeout_seconds: "int(1,60)"
-  goe_poll_interval_seconds: "int(1,3600)"
-  ocpp_version: "list(1.6)"
-  ocpp_backend_url: "str(1,)"
-  ocpp_charge_point_id: "str(1,)"
-  ocpp_connector_id: "int(1,99)"
-  ocpp_basic_auth_user: "str?"
-  ocpp_basic_auth_password: "password?"
+  goe_timeout_seconds: int
+  goe_poll_interval_seconds: int
+  ocpp_version: str
+  ocpp_backend_url: str
+  ocpp_charge_point_id: str
+  ocpp_connector_id: int
+  ocpp_basic_auth_user: str
+  ocpp_basic_auth_password: password
   bridge_dry_run: bool
   bridge_read_only: bool
   bridge_allow_remote_start: bool
   bridge_allow_remote_stop: bool
-  bridge_heartbeat_interval_seconds: "int(5,3600)"
-  bridge_meter_interval_seconds: "int(5,3600)"
-  bridge_reconnect_interval_seconds: "int(1,600)"
-  bridge_websocket_ping_interval_seconds: "int(5,600)"
-  bridge_websocket_ping_timeout_seconds: "int(5,600)"
+  bridge_heartbeat_interval_seconds: int
+  bridge_meter_interval_seconds: int
+  bridge_reconnect_interval_seconds: int
+  bridge_websocket_ping_interval_seconds: int
+  bridge_websocket_ping_timeout_seconds: int
   bridge_log_level: "list(DEBUG|INFO|WARNING|ERROR)"
-  bridge_state_file: "str(1,)"
-  bridge_log_file: "str?"
+  bridge_state_file: str
+  bridge_log_file: str
