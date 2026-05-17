@@ -36,9 +36,11 @@ goe-ocpp-bridge-ha-addon/
 
 Das Repository muss als GitHub-URL im Home-Assistant-App-Store hinzugefuegt werden. Home Assistant baut die App lokal, weil in `config.yaml` bewusst kein fertiges `image` hinterlegt ist.
 
-## Vor der Veroeffentlichung anpassen
+## Repository
 
-In `repository.yaml` und `goe_ocpp_bridge/config.yaml` ist aktuell eine Platzhalter-URL eingetragen. Vor einer Veroeffentlichung sollte dort die echte GitHub-URL des Repositories stehen.
+Die App verweist auf dieses Repository:
+
+https://github.com/nvormund/go-e_v1_v2_OCPP_bridge_ha_addon
 
 ## Zielgruppe
 
