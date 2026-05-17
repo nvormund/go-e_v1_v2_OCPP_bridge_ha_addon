@@ -1,0 +1,67 @@
+name: go-e v1_v2 OCPP Bridge
+version: "0.1.0"
+slug: goe_ocpp_bridge
+description: Lokale go-eCharger HTTP API als OCPP 1.6 JSON Charge Point bereitstellen
+url: https://example.invalid/goe-ocpp-bridge-ha-addon
+arch:
+  - aarch64
+  - amd64
+  - armv7
+startup: application
+boot: manual
+init: false
+stage: experimental
+
+options:
+  goe:
+    host: "192.168.178.50"
+    api_version: "auto"
+    timeout_seconds: 5
+    poll_interval_seconds: 30
+  ocpp:
+    version: "1.6"
+    backend_url: "wss://example.com/ocpp/goe-test-001"
+    charge_point_id: "goe-test-001"
+    connector_id: 1
+    basic_auth_user: ""
+    basic_auth_password: ""
+  bridge:
+    dry_run: true
+    read_only: true
+    allow_remote_start: false
+    allow_remote_stop: true
+    heartbeat_interval_seconds: 30
+    meter_interval_seconds: 30
+    reconnect_interval_seconds: 10
+    websocket_ping_interval_seconds: 15
+    websocket_ping_timeout_seconds: 20
+    log_level: "DEBUG"
+    state_file: "/data/state.json"
+    log_file: ""
+
+schema:
+  goe:
+    host: "str(1,)"
+    api_version: "list(auto|v1|v2)"
+    timeout_seconds: "float(1,60)"
+    poll_interval_seconds: "float(1,3600)"
+  ocpp:
+    version: "list(1.6)"
+    backend_url: "str(1,)"
+    charge_point_id: "str(1,)"
+    connector_id: "int(1,99)"
+    basic_auth_user: "str?"
+    basic_auth_password: "password?"
+  bridge:
+    dry_run: bool
+    read_only: bool
+    allow_remote_start: bool
+    allow_remote_stop: bool
+    heartbeat_interval_seconds: "float(5,3600)"
+    meter_interval_seconds: "float(5,3600)"
+    reconnect_interval_seconds: "float(1,600)"
+    websocket_ping_interval_seconds: "float(5,600)"
+    websocket_ping_timeout_seconds: "float(5,600)"
+    log_level: "list(DEBUG|INFO|WARNING|ERROR)"
+    state_file: "str(1,)"
+    log_file: "str?"

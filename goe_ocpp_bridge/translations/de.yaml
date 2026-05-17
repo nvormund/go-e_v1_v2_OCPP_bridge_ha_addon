@@ -1,0 +1,79 @@
+configuration:
+  goe:
+    name: go-e Wallbox
+    description: Verbindung zur Wallbox im lokalen Netzwerk.
+    fields:
+      host:
+        name: IP-Adresse oder Hostname
+        description: Die lokale Adresse der go-e Wallbox. Beispiel 192.168.178.50. Die App verbindet sich direkt mit dieser Adresse und benutzt keine Home-Assistant-Integration.
+      api_version:
+        name: go-e API-Version
+        description: Normalerweise auto verwenden. Bei alten go-eChargern wird dann automatisch API v1 genutzt, bei neueren API v2.
+      timeout_seconds:
+        name: HTTP-Timeout in Sekunden
+        description: So lange wartet die App auf eine Antwort der Wallbox. 5 Sekunden sind fuer normale Heimnetzwerke ein guter Startwert.
+      poll_interval_seconds:
+        name: go-e Polling-Intervall
+        description: Reserviert fuer interne go-e-Abfragen. Die OCPP-Messwerte werden ueber das Feld Messwert-Intervall im Bereich Bridge gesendet.
+  ocpp:
+    name: OCPP-Backend
+    description: Zugangsdaten und Adresse des externen OCPP-Backends.
+    fields:
+      version:
+        name: OCPP-Version
+        description: Aktuell wird nur OCPP 1.6 JSON ueber WebSocket unterstuetzt.
+      backend_url:
+        name: OCPP WebSocket URL
+        description: Die vollstaendige wss-URL aus dem Backend. Diese URL wird exakt so verwendet, wie sie hier eingetragen ist.
+      charge_point_id:
+        name: Charge-Point-ID
+        description: Der Name der Ladepunkt-Instanz im Backend. Dieser Wert muss zum Backend passen und ist haeufig auch Teil der WebSocket URL.
+      connector_id:
+        name: Connector-ID
+        description: Nummer des Ladeanschlusses. Fuer eine einzelne go-e Wallbox ist normalerweise 1 richtig.
+      basic_auth_user:
+        name: Basic-Auth Benutzer
+        description: Nur ausfuellen, wenn das OCPP-Backend HTTP Basic Authentication fuer die WebSocket-Verbindung verlangt. Sonst leer lassen.
+      basic_auth_password:
+        name: Basic-Auth Passwort
+        description: Nur ausfuellen, wenn das OCPP-Backend ein Basic-Auth-Passwort verlangt. Sonst leer lassen.
+  bridge:
+    name: Bridge-Verhalten und Sicherheit
+    description: Sicherheits-, Messwert-, Reconnect- und Logging-Einstellungen.
+    fields:
+      dry_run:
+        name: Testmodus ohne Steuerbefehle
+        description: Wenn aktiv, werden keine Start- oder Stop-Kommandos an die Wallbox gesendet. Gut fuer die erste Einrichtung.
+      read_only:
+        name: Nur lesen
+        description: Wenn aktiv, sendet die App nur Status und Messwerte. RemoteStart und RemoteStop werden blockiert.
+      allow_remote_start:
+        name: RemoteStart erlauben
+        description: Erlaubt dem OCPP-Backend, die Ladung zu starten. Funktioniert nur, wenn Testmodus aus und Nur lesen aus ist.
+      allow_remote_stop:
+        name: RemoteStop erlauben
+        description: Erlaubt dem OCPP-Backend, die Ladung zu stoppen. Funktioniert nur, wenn Testmodus aus und Nur lesen aus ist.
+      heartbeat_interval_seconds:
+        name: Heartbeat-Intervall in Sekunden
+        description: Wie oft ein OCPP Heartbeat gesendet wird, falls das Backend kein eigenes Intervall vorgibt.
+      meter_interval_seconds:
+        name: Messwert-Intervall in Sekunden
+        description: Wie oft Status und Messwerte von der Wallbox gelesen und an das OCPP-Backend gesendet werden.
+      reconnect_interval_seconds:
+        name: Reconnect-Wartezeit in Sekunden
+        description: Wie lange die App nach einem Verbindungsabbruch wartet, bevor sie sich erneut mit dem OCPP-Backend verbindet.
+      websocket_ping_interval_seconds:
+        name: WebSocket-Keepalive-Intervall
+        description: Technischer Ping auf WebSocket-Ebene. Hilft, die Verbindung durch Router, Proxies oder Firewalls offen zu halten.
+      websocket_ping_timeout_seconds:
+        name: WebSocket-Keepalive-Timeout
+        description: So lange wartet die App auf eine Pong-Antwort, bevor die Verbindung neu aufgebaut wird.
+      log_level:
+        name: Log-Stufe
+        description: DEBUG zeigt sehr viele Details und ist gut fuer die Einrichtung. INFO ist fuer den Dauerbetrieb meist ausreichend.
+      state_file:
+        name: Statusdatei
+        description: Datei fuer persistenten Bridge-Status im Container. Fuer normale Nutzung den Standard /data/state.json beibehalten.
+      log_file:
+        name: Logdatei
+        description: Optionaler Pfad fuer eine Logdatei im Container. Leer lassen, wenn nur das Home-Assistant-App-Log genutzt werden soll.

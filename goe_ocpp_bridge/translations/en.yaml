@@ -1,0 +1,79 @@
+configuration:
+  goe:
+    name: go-e Wallbox
+    description: Connection to the wallbox in the local network.
+    fields:
+      host:
+        name: IP address or hostname
+        description: Local address of the go-e wallbox, for example 192.168.178.50.
+      api_version:
+        name: go-e API version
+        description: Use auto unless you know that your charger needs v1 or v2.
+      timeout_seconds:
+        name: HTTP timeout in seconds
+        description: How long the app waits for the wallbox to respond.
+      poll_interval_seconds:
+        name: go-e polling interval
+        description: Reserved for go-e polling. OCPP telemetry uses the meter interval under Bridge.
+  ocpp:
+    name: OCPP backend
+    description: Address and credentials for the external OCPP backend.
+    fields:
+      version:
+        name: OCPP version
+        description: Only OCPP 1.6 JSON over WebSocket is currently supported.
+      backend_url:
+        name: OCPP WebSocket URL
+        description: Full wss URL from your backend. The app uses this URL exactly as entered.
+      charge_point_id:
+        name: Charge point ID
+        description: Charge point name known by the backend. It often also appears in the WebSocket URL.
+      connector_id:
+        name: Connector ID
+        description: Usually 1 for a single go-e wallbox.
+      basic_auth_user:
+        name: Basic auth user
+        description: Only needed if your OCPP backend requires HTTP Basic Authentication.
+      basic_auth_password:
+        name: Basic auth password
+        description: Only needed if your OCPP backend requires HTTP Basic Authentication.
+  bridge:
+    name: Bridge behavior and safety
+    description: Safety, telemetry, reconnect, and logging settings.
+    fields:
+      dry_run:
+        name: Test mode without control commands
+        description: When enabled, no start or stop commands are sent to the wallbox.
+      read_only:
+        name: Read only
+        description: When enabled, the app only sends status and meter values.
+      allow_remote_start:
+        name: Allow RemoteStart
+        description: Allows the OCPP backend to start charging. Dry run and read only must be disabled.
+      allow_remote_stop:
+        name: Allow RemoteStop
+        description: Allows the OCPP backend to stop charging. Dry run and read only must be disabled.
+      heartbeat_interval_seconds:
+        name: Heartbeat interval in seconds
+        description: Fallback OCPP heartbeat interval if the backend does not provide one.
+      meter_interval_seconds:
+        name: Meter interval in seconds
+        description: How often status and meter values are sent to the OCPP backend.
+      reconnect_interval_seconds:
+        name: Reconnect delay in seconds
+        description: Delay before reconnecting after a broken backend connection.
+      websocket_ping_interval_seconds:
+        name: WebSocket keepalive interval
+        description: Technical WebSocket ping interval.
+      websocket_ping_timeout_seconds:
+        name: WebSocket keepalive timeout
+        description: Timeout for WebSocket pong responses.
+      log_level:
+        name: Log level
+        description: DEBUG is useful during setup, INFO is usually enough for normal operation.
+      state_file:
+        name: State file
+        description: Persistent bridge state file. Keep /data/state.json for normal use.
+      log_file:
+        name: Log file
+        description: Optional container log file. Leave empty to use only the Home Assistant app log.

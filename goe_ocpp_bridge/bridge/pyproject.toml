@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel>=0.41"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "goe-ocpp-bridge"
+version = "0.1.0"
+description = "Isolated go-eCharger HTTP API to OCPP 1.6 JSON bridge"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "aiohttp>=3.9,<4",
+    "ocpp>=0.26,<1",
+    "PyYAML>=6.0,<7",
+    "websockets>=12,<14",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8,<9",
+    "pytest-asyncio>=0.23,<1",
+]
+
+[project.scripts]
+goe-ocpp-bridge = "goe_ocpp_bridge.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
